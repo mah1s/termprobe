@@ -64,11 +64,11 @@ func main() {
 	// program will read from the current position and not from beginning
 	file, err := os.Open(fileToRead)
 	if err != nil {
-		log.Printf("failed to read file: %v", err)
+		log.Fatalf("failed to read file: %v", err)
 	}
 	fileStat, err := file.Stat()
 	if err != nil {
-		log.Printf("failed to get stats of file: %v", err)
+		log.Fatalf("failed to get stats of file: %v", err)
 	}
 	startFrom = fileStat.Size()
 	file.Close()
