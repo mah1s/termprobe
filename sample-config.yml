@@ -1,0 +1,9 @@
+plotName:
+  title: "Title of the graph"
+  filePath: "full-file-path-to-read"
+  regexPattern: "regex-pattern"
+  maxLines: 10
+  leftPadding: 0
+  topPadding: 0
+  rightPadding: 50
+  bottomPadding: 15
