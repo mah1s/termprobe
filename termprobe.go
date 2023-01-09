@@ -90,6 +90,7 @@ func main() {
 		p.Data = make([][]float64, 1)
 		p.Data[0] = valsToPlot
 		p.SetRect(leftPadding, topPadding, rightPadding, bottomPadding)
+		p.TitleStyle.Fg = ui.ColorRed
 		p.AxesColor = ui.ColorWhite
 		p.LineColors[0] = ui.ColorGreen
 		p.PlotType = widgets.LineChart
