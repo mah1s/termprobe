@@ -1,9 +1,20 @@
-plotName:
-  title: "Title of the graph"
+# Maximum of 2 plots for now
+
+plotName1:
+  title: "Title of the graph 1"
   filePath: "full-file-path-to-read"
-  regexPattern: "regex-pattern"
+  regexPattern: "regex-pattern-to-capture-single-group"
   maxLines: 10
   leftPadding: 0
   topPadding: 0
-  rightPadding: 50
+  rightPadding: 60
+  bottomPadding: 15
+plotName2:
+  title: "Title of the graph 2"
+  filePath: "full-file-path-to-read"
+  regexPattern: "regex-pattern-to-capture-single-group"
+  maxLines: 10
+  leftPadding: 60
+  topPadding: 0
+  rightPadding: 120
   bottomPadding: 15
