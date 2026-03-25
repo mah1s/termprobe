@@ -16,3 +16,6 @@ local-*
 
 # Local config.yml file
 config.yml
+
+# Local builds
+termprobe
