@@ -1,4 +1,6 @@
-# Maximum of 2 plots for now
+# Any number of plots can be defined
+# (but take terminal size into account when defining padding and width/height of plots)
+
 
 plotName1:
   title: "Title of the graph 1"
@@ -17,4 +19,13 @@ plotName2:
   leftPadding: 60
   topPadding: 0
   rightPadding: 120
+  bottomPadding: 15
+plotName3:
+  title: "Title of the graph 3"
+  filePath: "/Users/mahi/my-artifacts/dev/sample-logs/file1.log"
+  regexPattern: "^\\d+,\\d+,(\\d+)$"
+  maxLines: 10
+  leftPadding: 0
+  topPadding: 30
+  rightPadding: 60
   bottomPadding: 15
