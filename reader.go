@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func ReadFile(graphId string, fileToRead string, maxLines int, startPos int64, re string, configName string, ch chan<- DataResp) {
+func ReadFile(fileToRead string, maxLines int, startPos int64, re string, configName string, ch chan<- DataResp) {
 
 	var resp DataResp
 	var dataFloats []float64
@@ -97,6 +97,6 @@ func ReadFile(graphId string, fileToRead string, maxLines int, startPos int64, r
 	}
 	startPos = currentRead
 	// return on channel
-	resp.GraphId, resp.ConfigName, resp.Data, resp.FileName, resp.Position, resp.Error = graphId, configName, dataFloats, fileToRead, startPos, nil
+	resp.ConfigName, resp.Data, resp.FileName, resp.Position, resp.Error = configName, dataFloats, fileToRead, startPos, nil
 	ch <- resp
 }

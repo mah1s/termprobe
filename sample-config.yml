@@ -5,10 +5,10 @@ plotName1:
   filePath: "full-file-path-to-read"
   regexPattern: "regex-pattern-to-capture-single-group"
   maxLines: 10
-  leftPadding: 0
-  topPadding: 0
-  rightPadding: 60
-  bottomPadding: 15
+  leftPadding: 0 # left position/coordinate in terminal to start plotting from
+  topPadding: 0 # top position in terminal to start plotting from
+  rightPadding: 60 # defines width of the plot (length of columns, measured in character cells)
+  bottomPadding: 15 # defines height of the plot (measured in character cells)
 plotName2:
   title: "Title of the graph 2"
   filePath: "full-file-path-to-read"

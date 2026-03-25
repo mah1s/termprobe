@@ -11,7 +11,6 @@ import (
 )
 
 type Graphs struct {
-	GraphId       string
 	ConfigName    string
 	Title         string
 	StartFrom     int64
@@ -23,7 +22,6 @@ type Graphs struct {
 }
 
 type DataResp struct {
-	GraphId    string
 	ConfigName string
 	Data       []float64
 	Position   int64
@@ -47,36 +45,20 @@ func DrawGraph(configData map[string]Configs, graphsMap map[string]Graphs) {
 
 	// call plot on ticker
 	plot := func(graph map[string]Graphs) {
-
-		p := widgets.NewPlot()
-		q := widgets.NewPlot()
-
-		for k := range graph {
-
-			switch graph[k].GraphId {
-			case "graph1":
-				p.Title = graph[k].Title
-				p.Data = make([][]float64, 1)
-				p.Data[0] = graph[k].Values
-				p.SetRect(graph[k].LeftPadding, graph[k].TopPadding, graph[k].RightPadding, graph[k].BottomPadding)
-				p.TitleStyle.Fg = ui.ColorGreen
-				p.AxesColor = ui.ColorWhite
-				p.LineColors[0] = ui.ColorRed
-				p.PlotType = widgets.LineChart
-
-			case "graph2":
-				q.Title = graph[k].Title
-				q.Data = make([][]float64, 1)
-				q.Data[0] = graph[k].Values
-				q.SetRect(graph[k].LeftPadding, graph[k].TopPadding, graph[k].RightPadding, graph[k].BottomPadding)
-				q.TitleStyle.Fg = ui.ColorGreen
-				q.AxesColor = ui.ColorWhite
-				q.LineColors[0] = ui.ColorRed
-				q.PlotType = widgets.LineChart
-			}
+		drawables := make([]ui.Drawable, 0, len(graph))
+		for _, g := range graph {
+			p := widgets.NewPlot()
+			p.Title = g.Title
+			p.Data = make([][]float64, 1)
+			p.Data[0] = g.Values
+			p.SetRect(g.LeftPadding, g.TopPadding, g.RightPadding, g.BottomPadding)
+			p.TitleStyle.Fg = ui.ColorGreen
+			p.AxesColor = ui.ColorWhite
+			p.LineColors[0] = ui.ColorRed
+			p.PlotType = widgets.LineChart
+			drawables = append(drawables, p)
 		}
-
-		ui.Render(p, q)
+		ui.Render(drawables...)
 	}
 
 	for {
@@ -88,14 +70,13 @@ func DrawGraph(configData map[string]Configs, graphsMap map[string]Graphs) {
 			}
 		case <-ticker:
 			for k, v := range configData {
-				go ReadFile(graphsMap[k].GraphId, v.FilePath, v.MaxLines, graphsMap[k].StartFrom, v.RegexPattern, k, ch)
+				go ReadFile(v.FilePath, v.MaxLines, graphsMap[k].StartFrom, v.RegexPattern, k, ch)
 			}
 
 			for range configData {
 				dataResp := <-ch
 
 				var graph Graphs
-				id := dataResp.GraphId
 
 				if errors.Is(dataResp.Error, os.ErrNotExist) {
 					// TODO: ignore if file does not exist, for now
@@ -118,7 +99,6 @@ func DrawGraph(configData map[string]Configs, graphsMap map[string]Graphs) {
 					}
 				}
 
-				graph.GraphId = id
 				graph.Title = graphsMap[dataResp.ConfigName].Title
 				graph.LeftPadding = graphsMap[dataResp.ConfigName].LeftPadding
 				graph.TopPadding = graphsMap[dataResp.ConfigName].TopPadding

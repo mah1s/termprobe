@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 
 	"gopkg.in/yaml.v3"
 )
@@ -37,9 +36,7 @@ func main() {
 
 	graphsData := make(map[string]Graphs)
 
-	i := 0
 	for k, v := range configData {
-		i++
 		fmt.Printf("Plotting: %s[\"%s\"]\n", k, v.Title)
 		var gm Graphs
 
@@ -56,7 +53,6 @@ func main() {
 			log.Fatalf("failed to get stats of file: %v", err)
 		}
 
-		gm.GraphId = "graph" + strconv.Itoa(i)
 		gm.ConfigName = k
 		gm.Title = v.Title
 		gm.StartFrom = fileStat.Size()
